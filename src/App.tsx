@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ProductionProvider } from './context/ProductionContext';
+import { useProductionData } from './hooks/useProductionData';
+import DashboardHeader from './components/DashboardHeader';
+import ShiftSelector from './components/ShiftSelector';
+import ProductionGrid from './components/ProductionGrid';
+import WorkcenterLegend from './components/WorkcenterLegend';
 
-function App() {
+const Dashboard: React.FC = () => {
+  useProductionData();
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-gray-100 pb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <DashboardHeader />
+        <ShiftSelector />
+        <WorkcenterLegend />
+        <ProductionGrid />
+      </div>
     </div>
   );
-}
+};
+
+const App: React.FC = () => {
+  return (
+    <ProductionProvider>
+      <Dashboard />
+    </ProductionProvider>
+  );
+};
 
 export default App;
